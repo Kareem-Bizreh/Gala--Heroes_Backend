@@ -17,7 +17,7 @@ class EmailVerify extends Mailable
     /**
      * Create a new message instance.
      */
-    public function __construct(public User $user)
+    public function __construct(public string $name, public string $verificationCode)
     {
         //
     }
@@ -39,10 +39,6 @@ class EmailVerify extends Mailable
     {
         return new Content(
             view: 'mail.confirmation-email',
-            with: [
-                'name' => $this->user->full_name,
-                'verificationCode' => $this->user->Verify_Code,
-            ]
         );
     }
 

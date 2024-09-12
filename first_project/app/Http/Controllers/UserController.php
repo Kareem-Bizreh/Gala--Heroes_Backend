@@ -27,17 +27,47 @@ class UserController extends Controller
      *     path="/users/register",
      *     summary="register users",
      *     tags={"Users"},
-     *     @OA\Parameter(
-     *      name="full_name",
-     *      description="name of the user",
-     *      example="Harry Potter",
-     *      required=true,
-     *      in="path",
-     *      @OA\Schema(
-     *          type="string"
-     *      )
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"full_name", "email" , "password" , "password_confirmation"},
+     *             @OA\Property(
+     *                 property="full_name",
+     *                 type="string",
+     *                 example="Harry Potter"
+     *             ),
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 example="test@example.com"
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 example="password123"
+     *             ),
+     *             @OA\Property(
+     *                 property="password_confirmation",
+     *                 type="string",
+     *                 example="password123"
+     *             )
+     *         )
      *     ),
-     *     @OA\Response(response=200, description="Successful register and verification code send"),
+     *     @OA\Response(
+     *      response=200, description="Successful register and verification code send to user with id",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="Verification code sent"
+     *             ),
+     *             @OA\Property(
+     *                 property="id",
+     *                 type="integer",
+     *                 example=1
+     *             ),
+     *         )
+     *     ),
      *     @OA\Response(response=400, description="Invalid request")
      * )
      */
@@ -55,7 +85,7 @@ class UserController extends Controller
                 'errors' => $validateDate->errors(),
             ], 400);
         }
-
+        $validateDate = $validateDate->validated();
         $verificationCode = Str::random(6);
         $user = $this->userService->createUser($validateDate);
         Cache::put('user_id_' . $user->id, $verificationCode, now()->addMinutes(5));
@@ -71,7 +101,32 @@ class UserController extends Controller
      *     path="/users/verifyEmail",
      *     summary="verify users",
      *     tags={"Users"},
-     *     @OA\Response(response=200, description="Successful verify"),
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"verify_code", "id"},
+     *             @OA\Property(
+     *                 property="verify_code",
+     *                 type="string",
+     *                 example="123456"
+     *             ),
+     *             @OA\Property(
+     *                 property="id",
+     *                 type="integer",
+     *                 example=1
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *      response=200, description="Successful verify",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="user has been verified"
+     *             ),
+     *         )
+     *     ),
      *     @OA\Response(response=400, description="Invalid request")
      * )
      */
@@ -88,6 +143,7 @@ class UserController extends Controller
                 'errors' => $data->errors(),
             ], 400);
         }
+        $data = $data->validated();
 
         return $this->userService->verifyEmailAddress($data['verify_code'], $data['id']);
     }

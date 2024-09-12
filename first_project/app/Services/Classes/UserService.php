@@ -82,8 +82,8 @@ class UserService implements UserServiceInterface
     public function verifyEmailAddress(string $verificationCode, int $id)
     {
         $code = Cache::get('user_id_' . $id);
-        if ($code) {
-            return response()->json(['message' => 'Verification code expires'], 404);
+        if (! $code) {
+            return response()->json(['message' => 'Verification code dont exist'], 400);
         }
         if ($code != $verificationCode) {
             return response()->json(['message' => 'Verification code is not correct'], 400);

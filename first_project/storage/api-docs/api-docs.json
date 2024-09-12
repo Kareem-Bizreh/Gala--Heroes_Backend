@@ -4,6 +4,11 @@
         "title": "My First API",
         "version": "0.1"
     },
+    "servers": [
+        {
+            "url": "/api"
+        }
+    ],
     "paths": {
         "/users/register": {
             "post": {
@@ -12,21 +17,60 @@
                 ],
                 "summary": "register users",
                 "operationId": "75ac4d6a6e8c8bdc865ea7806514679b",
-                "parameters": [
-                    {
-                        "name": "full_name",
-                        "in": "path",
-                        "description": "name of the user",
-                        "required": true,
-                        "schema": {
-                            "type": "string"
-                        },
-                        "example": "Harry Potter"
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "email",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "example": "Harry Potter"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
-                        "description": "Successful register and verification code send"
+                        "description": "Successful register and verification code send to user with id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Verification code sent"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Invalid request"
@@ -41,9 +85,46 @@
                 ],
                 "summary": "verify users",
                 "operationId": "8c7278ba5a838ab15f32dc2dcb23f051",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "verify_code",
+                                    "id"
+                                ],
+                                "properties": {
+                                    "verify_code": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "Successful verify"
+                        "description": "Successful verify",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user has been verified"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
                     },
                     "400": {
                         "description": "Invalid request"

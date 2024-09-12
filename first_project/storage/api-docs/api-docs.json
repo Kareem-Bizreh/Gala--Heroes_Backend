@@ -1,0 +1,61 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "0.1"
+    },
+    "paths": {
+        "/users/register": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "register users",
+                "operationId": "75ac4d6a6e8c8bdc865ea7806514679b",
+                "parameters": [
+                    {
+                        "name": "full_name",
+                        "in": "path",
+                        "description": "name of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "example": "Harry Potter"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful register and verification code send"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/users/verifyEmail": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "verify users",
+                "operationId": "8c7278ba5a838ab15f32dc2dcb23f051",
+                "responses": {
+                    "200": {
+                        "description": "Successful verify"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Users",
+            "description": "Users"
+        }
+    ]
+}

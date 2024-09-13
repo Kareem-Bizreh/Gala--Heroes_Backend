@@ -181,7 +181,7 @@ class UserController extends Controller
      *             @OA\Property(
      *                 property="Bearer Token",
      *                 type="string",
-     *                 example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI2MDM2MzYyLCJleHAiOjE3MjYwMzk5NjIsIm5iZiI6MTcyNjAzNjM2MiwianRpIjoiQXdRVFBwOW81RVcySjFtWCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.1-9BpWg7iuiLDCBVcD3euXcrQjPs5KOLPv6OWz7_lio"
+     *                 example="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
      *             ),
      *         )
      *     ),

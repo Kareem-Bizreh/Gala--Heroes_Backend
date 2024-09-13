@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mail\EmailVerify;
 use App\Services\Classes\UserService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
@@ -146,5 +147,98 @@ class UserController extends Controller
         $data = $data->validated();
 
         return $this->userService->verifyEmailAddress($data['verify_code'], $data['id']);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/users/login",
+     *     summary="login user",
+     *     tags={"Users"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"email", "password"},
+     *             @OA\Property(
+     *                 property="email",
+     *                 type="string",
+     *                 example="test@example.com"
+     *             ),
+     *             @OA\Property(
+     *                 property="password",
+     *                 type="string",
+     *                 example="password"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *      response=200, description="Successful login",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="user has been login successfuly"
+     *             ),
+     *             @OA\Property(
+     *                 property="Bearer Token",
+     *                 type="string",
+     *                 example="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzI2MDM2MzYyLCJleHAiOjE3MjYwMzk5NjIsIm5iZiI6MTcyNjAzNjM2MiwianRpIjoiQXdRVFBwOW81RVcySjFtWCIsInN1YiI6IjEiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.1-9BpWg7iuiLDCBVcD3euXcrQjPs5KOLPv6OWz7_lio"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function login(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'email' => 'required|email|exists:users,email',
+            'password' => 'required|string|min:8',
+        ]);
+
+        if ($data->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $data->errors(),
+            ], 400);
+        }
+        $data = $data->validated();
+
+        $user = $this->userService->findByEmail($data['email']);
+        if (! $user->email_verified_at) {
+            return response()->json([
+                'message' => 'user has not been verified',
+            ], 400);
+        }
+
+        return $this->userService->createToken($data);
+    }
+
+    /**
+     * @OA\Post(
+     *     path="/users/logout",
+     *     summary="logout user",
+     *     tags={"Users"},
+     *     @OA\Response(
+     *      response=200, description="Successful logout",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="user has been logout successfuly"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Invalid request"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+    public function logout()
+    {
+        Auth::logout();
+        return response()->json([
+            'message' => 'user has been logout successfuly'
+        ], 200);
     }
 }

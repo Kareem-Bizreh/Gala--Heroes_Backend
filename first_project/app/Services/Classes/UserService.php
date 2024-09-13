@@ -5,6 +5,8 @@ namespace App\Services\Classes;
 use App\Services\Interfaces\UserServiceInterface;
 use App\Models\User;
 use Illuminate\Support\Facades\Cache;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Exceptions\JWTException;
 
 class UserService implements UserServiceInterface
 {
@@ -116,5 +118,24 @@ class UserService implements UserServiceInterface
     public function changeUserPassword(int $id, string $newPassword): bool
     {
         return false;
+    }
+
+    /**
+     * Create token.
+     *
+     * @param array $data
+     */
+    public function createToken(array $data)
+    {
+        $token = JWTAuth::attempt($data);
+        if (! $token) {
+            return response()->json([
+                'message' => 'user login failed'
+            ], 400);
+        }
+        return response()->json([
+            'message' => 'user has been login successfuly',
+            'Bearer Token' => $token
+        ], 200);
     }
 }

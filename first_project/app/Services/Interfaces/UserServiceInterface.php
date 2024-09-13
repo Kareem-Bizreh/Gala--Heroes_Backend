@@ -70,4 +70,11 @@ interface UserServiceInterface
      * @throws ValidationException
      */
     public function changeUserPassword(int $id, string $newPassword): bool;
+
+    /**
+     * Create token.
+     *
+     * @param array $data
+     */
+    public function createToken(array $data);
 }

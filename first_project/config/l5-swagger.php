@@ -170,6 +170,13 @@ return [
         */
         'securityDefinitions' => [
             'securitySchemes' => [
+                'bearer' => [
+                    'type' => 'http',
+                    'scheme' => 'bearer',
+                    'in' => 'header',
+                    'name' => 'Authorization',
+                    'description' => 'Enter your Bearer token in the format `YOUR_TOKEN`. For example: `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...`',
+                ],
                 /*
                  * Examples of Security schemes
                  */
@@ -214,7 +221,8 @@ return [
                     'name' => 'Authorization', // The name of the header or query parameter to be used.
                     'in' => 'header', // The location of the API key. Valid values are "query" or "header".
                 ],
-                */],
+                */
+            ],
             'security' => [
                 /*
                  * Examples of Securities

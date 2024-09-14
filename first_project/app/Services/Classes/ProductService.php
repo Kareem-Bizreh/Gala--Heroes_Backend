@@ -17,7 +17,7 @@ class ProductService implements ProductServiceInterface
             'between_percent' => $request->get('between_percent'),
             'less_period' => $request->get('less_period'),
             'less_percent' => $request->get('less_percent'),
-            ]);
+        ]);
         $product = Product::create([
             'seller_id' => auth()->id(),
             'name' => $request->get('name'),

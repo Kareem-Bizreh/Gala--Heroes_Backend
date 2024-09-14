@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('periods', function (Blueprint $table) {
             $table->id();
-            $table->json('periods_arr');
-            $table->json('rates_arr');
+            $table->integer('more_period');
+            $table->integer('more_percent');
+            $table->integer('between_percent');
+            $table->integer('less_period');
+            $table->integer('less_percent');
             $table->timestamps();
         });
     }

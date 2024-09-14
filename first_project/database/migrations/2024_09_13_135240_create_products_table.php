@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('customer_id')->constrained('users')->references('id');
+            $table->foreignId('seller_id')->constrained('users')->references('id');
             $table->string('name');
             $table->string('image_url');
             $table->foreignId('category_id')->constrained('categories')->references('id');
@@ -21,8 +21,8 @@ return new class extends Migration
             $table->date('expiration_date');
             $table->foreignId('period_id')->constrained('periods')->references('id');
             $table->integer('count');
-            $table->integer('views');
-            $table->text('description');
+            $table->integer('views')->default(0);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }

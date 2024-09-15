@@ -53,23 +53,13 @@ interface UserServiceInterface
     public function verifyEmailAddress(string $verificationCode, int $id);
 
     /**
-     * Reset password if user forget it
-     *
-     * @param string $email
-     * @return bool
-     */
-    public function resetPassword(string $email): bool;
-
-    /**
      * Change the user's password.
      *
      * @param int $id
      * @param string $newPassword
-     * @return bool
      * @throws ModelNotFoundException
-     * @throws ValidationException
      */
-    public function changeUserPassword(int $id, string $newPassword): bool;
+    public function changeUserPassword(int $id, string $newPassword);
 
     /**
      * Create token.
@@ -77,4 +67,12 @@ interface UserServiceInterface
      * @param array $data
      */
     public function createToken(array $data);
+
+    /**
+     * Verify the user's to create new password .
+     *
+     * @param string $verificationCode
+     * @param int $id
+     */
+    public function verifyPassword(string $verificationCode, int $id);
 }

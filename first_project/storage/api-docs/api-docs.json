@@ -224,6 +224,236 @@
                     }
                 ]
             }
+        },
+        "/users/forgetPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "send check code to user for forget password",
+                "operationId": "3f464d87b22f7850714525ccfd5629bb",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email"
+                                ],
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "verification code send to user with id",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Verification code sent"
+                                        },
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/users/verifyPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "verify usere to set new password",
+                "operationId": "db00482bfa21ba134d8accbdb2469855",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "verify_code",
+                                    "id"
+                                ],
+                                "properties": {
+                                    "verify_code": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful verify",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "user has been verified"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/users/setPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "set new password",
+                "operationId": "91c09999f3eb0bb3a1fe04cde0f6eb94",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "password",
+                                    "password_confirmation"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 1
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "password_confirmation": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully set of password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "new password set"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/users/resetPassword": {
+            "post": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "reset password",
+                "operationId": "39ea8a5264d6c13500bbcde918697e23",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "old_password",
+                                    "new_password",
+                                    "new_password_confirmation"
+                                ],
+                                "properties": {
+                                    "old_password": {
+                                        "type": "string",
+                                        "example": "password"
+                                    },
+                                    "new_password": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    },
+                                    "new_password_confirmation": {
+                                        "type": "string",
+                                        "example": "password123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully set of password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "new password set"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "tags": [

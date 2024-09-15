@@ -97,28 +97,17 @@ class UserService implements UserServiceInterface
     }
 
     /**
-     * Reset password if user forget it
-     *
-     * @param string $email
-     * @return bool
-     */
-    public function resetPassword(string $email): bool
-    {
-        return false;
-    }
-
-    /**
      * Change the user's password.
      *
      * @param int $id
      * @param string $newPassword
-     * @return bool
      * @throws ModelNotFoundException
-     * @throws ValidationException
      */
-    public function changeUserPassword(int $id, string $newPassword): bool
+    public function changeUserPassword(int $id, string $newPassword)
     {
-        return false;
+        $user = $this->findById($id);
+        $user->password = bcrypt($newPassword);
+        $user->save();
     }
 
     /**
@@ -138,5 +127,23 @@ class UserService implements UserServiceInterface
             'message' => 'user has been login successfuly',
             'Bearer Token' => $token
         ], 200);
+    }
+
+    /**
+     * Verify the user's to create new password .
+     *
+     * @param string $verificationCode
+     * @param int $id
+     */
+    public function verifyPassword(string $verificationCode, int $id)
+    {
+        $code = Cache::get('user_id_' . $id);
+        if (! $code) {
+            return response()->json(['message' => 'Verification code dont exist'], 400);
+        }
+        if ($code != $verificationCode) {
+            return response()->json(['message' => 'Verification code is not correct'], 400);
+        }
+        return response()->json(['message' => 'user has been verified']);
     }
 }

@@ -20,3 +20,4 @@ Route::group(['prefix' => 'users'], function () {
         // Route::post('/resetPassword', [UserController::class, 'resetPassword']);
     });
 });
+

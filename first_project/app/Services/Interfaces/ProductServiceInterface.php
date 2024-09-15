@@ -8,5 +8,5 @@ use http\Env\Request;
 
 interface ProductServiceInterface
 {
-    public function addProduct($request);
+
 }

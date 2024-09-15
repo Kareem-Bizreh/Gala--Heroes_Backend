@@ -92,6 +92,7 @@ class UserService implements UserServiceInterface
         }
         $user = $this->findById($id);
         $user->email_verified_at = now();
+        $user->save();
         return response()->json(['message' => 'user has been verified']);
     }
 

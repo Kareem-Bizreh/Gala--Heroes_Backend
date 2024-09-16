@@ -262,15 +262,8 @@ class ProductController extends Controller
      *       }
      * )
      */
-    public function editProduct(Request $request, $id)
+    public function editProduct(Request $request)
     {
-        $product = $this->productService->findProductById($id);
-        if (!$product) {
-            return response()->json(['message' => 'product not found'], 404);
-        }
-        if ( $product->seller_id != Auth::id()) {
-            return response()->json(['message' => 'not allowed'], 403);
-        }
         $validatedData = Validator::make($request->all(), [
             'more_period' => 'required | integer | min:0',
             'more_percent' => 'required | integer | min:0 | max:100',
@@ -284,12 +277,20 @@ class ProductController extends Controller
             'category_id' => 'required | integer | min:1',
             'count' => 'required | integer | min:1',
             'description' => 'required | string | min:3 | max:100',
+            'id' => 'required | integer | min:1',
         ]);
         if ($validatedData->fails()) {
             return response()->json([
                 'message' => 'Validation failed',
                 'errors' => $validatedData->errors(),
             ], 400);
+        }
+        $product = $this->productService->findProductById($request->get('id'));
+        if (!$product) {
+            return response()->json(['message' => 'product not found'], 404);
+        }
+        if ( $product->seller_id != Auth::id()) {
+            return response()->json(['message' => 'not allowed'], 403);
         }
         $validatedData = $validatedData->validated();
         $data = $this->productService->editProduct($validatedData, $product);

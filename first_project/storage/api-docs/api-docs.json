@@ -10,6 +10,23 @@
         }
     ],
     "paths": {
+        "/products/allProducts": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get all products",
+                "operationId": "ae5efe32f2526653bd4bf8d56200373f",
+                "responses": {
+                    "200": {
+                        "description": "Successful get all products"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
         "/users/register": {
             "post": {
                 "tags": [
@@ -457,6 +474,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Products",
+            "description": "Products"
+        },
         {
             "name": "Users",
             "description": "Users"

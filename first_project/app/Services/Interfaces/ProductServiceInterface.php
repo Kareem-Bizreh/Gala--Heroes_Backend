@@ -7,5 +7,10 @@ use App\Models\User;
 
 interface ProductServiceInterface
 {
-public function getAllProducts();
+    /**
+     * get all products
+     *
+     * @throws ModelNotFoundException
+     */
+    public function getAllProducts();
 }

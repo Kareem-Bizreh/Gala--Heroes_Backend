@@ -16,12 +16,19 @@ class ProductController extends Controller
         $this->productService = $productService;
     }
 
+    /**
+     * @OA\Get(
+     *     path="/products/allProducts",
+     *     summary="get all products",
+     *     tags={"Products"},
+     *     @OA\Response(
+     *      response=200, description="Successful get all products"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
     public function showAllProducts()
     {
         $products = $this->productService->getAllProducts();
-        if($products->isEmpty())
-            return response()->json(['massage' => 'There are no products.'], 200);
-        else
-            return response()->json($products, 200);
+        return response()->json($products, 200);
     }
 }

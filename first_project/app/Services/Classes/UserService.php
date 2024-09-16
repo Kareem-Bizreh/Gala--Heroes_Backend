@@ -66,12 +66,12 @@ class UserService implements UserServiceInterface
      * @param $data
      * @return User
      * @throws ModelNotFoundException
-     * @throws ValidationException
      */
     public function updateUser(int $id, $data): User
     {
         $user = User::find($id);
-        //
+        $user->update($data);
+        $user->save();
         return $user;
     }
 

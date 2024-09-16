@@ -162,14 +162,23 @@ class ProductController extends Controller
 
     /**
      * @OA\Put(
-     *     path="/products/editProduct",
+     *     path="/products/editProduct/{product_id}",
      *     summary="edit product",
      *     tags={"Products"},
+     *     @OA\Parameter(
+     *          name="product_id",
+     *          in="path",
+     *          required=true,
+     *          description="Product number",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
      *     @OA\RequestBody(
      *         required=true,
      *         @OA\JsonContent(
      *             required={"more_period", "more_percent", "between_percent", "less_period", "less_percent", "name",
-     *      "image_url", "price", "expiration_date", "category_id", "count", "description", "id"},
+     *      "image_url", "price", "expiration_date", "category_id", "count", "description"},
      *             @OA\Property(
      *                 property="more_period",
      *                 type="integer",
@@ -233,11 +242,6 @@ class ProductController extends Controller
      *                     type="string",
      *                     example="good oil"
      *                ),
-     *              @OA\Property(
-     *                     property="id",
-     *                      type="integer",
-     *                      example="5"
-     *                 ),
      *
      *         )
      *     ),
@@ -262,7 +266,7 @@ class ProductController extends Controller
      *       }
      * )
      */
-    public function editProduct(Request $request)
+    public function editProduct(Request $request, $product_id)
     {
         $validatedData = Validator::make($request->all(), [
             'more_period' => 'required | integer | min:0',
@@ -277,7 +281,6 @@ class ProductController extends Controller
             'category_id' => 'required | integer | min:1',
             'count' => 'required | integer | min:1',
             'description' => 'required | string | min:3 | max:100',
-            'id' => 'required | integer | min:1',
         ]);
         if ($validatedData->fails()) {
             return response()->json([
@@ -285,7 +288,7 @@ class ProductController extends Controller
                 'errors' => $validatedData->errors(),
             ], 400);
         }
-        $product = $this->productService->findProductById($request->get('id'));
+        $product = $this->productService->findProductById($product_id);
         if (!$product) {
             return response()->json(['message' => 'product not found'], 404);
         }

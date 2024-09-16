@@ -143,13 +143,24 @@
                 ]
             }
         },
-        "/products/editProduct": {
+        "/products/editProduct/{product_id}": {
             "put": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "edit product",
-                "operationId": "cae7028f7d3dfdcbbc36ab8305494984",
+                "operationId": "cd24613bb0ec9cf342908c04894ba986",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -167,8 +178,7 @@
                                     "expiration_date",
                                     "category_id",
                                     "count",
-                                    "description",
-                                    "id"
+                                    "description"
                                 ],
                                 "properties": {
                                     "more_period": {
@@ -221,10 +231,6 @@
                                     "description": {
                                         "type": "string",
                                         "example": "good oil"
-                                    },
-                                    "id": {
-                                        "type": "integer",
-                                        "example": "5"
                                     }
                                 },
                                 "type": "object"

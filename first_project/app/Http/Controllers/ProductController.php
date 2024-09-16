@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Classes\ProductService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 use function PHPUnit\Framework\isEmpty;
 
@@ -128,7 +129,7 @@ class ProductController extends Controller
      */
     public function addProduct(Request $request)
     {
-        $validatedData = Validator::make($request->all(),[
+        $validatedData = Validator::make($request->all(), [
             'more_period' => 'required | integer | min:0',
             'more_percent' => 'required | integer | min:0 | max:100',
             'between_percent' => 'required | integer | min:0 | max:100',
@@ -153,6 +154,43 @@ class ProductController extends Controller
         return response()->json([
             'message' => 'product added successfully',
             'product' => $data
-        ],201);
+        ], 201);
+    }
+
+    public function editProduct(Request $request, $id)
+    {
+        $product = $this->productService->findProductById($id);
+        if (!$product) {
+            return response()->json(['message' => 'product not found'], 404);
+        }
+        if ( $product->seller_id != Auth::id()) {
+            return response()->json(['message' => 'not allowed'], 403);
+        }
+        $validatedData = Validator::make($request->all(), [
+            'more_period' => 'required | integer | min:0',
+            'more_percent' => 'required | integer | min:0 | max:100',
+            'between_percent' => 'required | integer | min:0 | max:100',
+            'less_period' => 'required | integer | min:0',
+            'less_percent' => 'required | integer | min:0 | max:100',
+            'name' => 'required | string | min:3 | max:100',
+            'image_url' => 'required | url',
+            'price' => 'required | numeric | min:0',
+            'expiration_date' => 'required | date | after:today',
+            'category_id' => 'required | integer | min:1',
+            'count' => 'required | integer | min:1',
+            'description' => 'required | string | min:3 | max:100',
+        ]);
+        if ($validatedData->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validatedData->errors(),
+            ], 400);
+        }
+        $validatedData = $validatedData->validated();
+        $data = $this->productService->editProduct($validatedData, $product);
+        return response()->json([
+            'message' => 'product edited successfully',
+            'product' => $data
+        ], 201);
     }
 }

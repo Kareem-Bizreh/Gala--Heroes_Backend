@@ -15,4 +15,6 @@ interface ProductServiceInterface
     public function getAllProducts();
 
     public function addProduct($data);
+
+    public function editProduct($data, $product);
 }

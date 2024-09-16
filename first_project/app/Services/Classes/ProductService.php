@@ -25,7 +25,13 @@ class ProductService implements ProductServiceInterface
         return Product::where('id', $id)->first();
     }
 
-
+    /**
+     * add product
+     *
+     * @param array $data
+     * @return Product
+     * @throws ModelNotFoundException
+     */
     public function addProduct($data)
     {
         $period = Period::create([
@@ -50,6 +56,14 @@ class ProductService implements ProductServiceInterface
         return $product;
     }
 
+    /**
+     * edit product by id
+     *
+     * @param array $data
+     * @param Product $product
+     * @return Product
+     * @throws ModelNotFoundException
+     */
     public function editProduct($data, $product)
     {
         Period::where('id', $product['period_id'])->update([
@@ -69,6 +83,18 @@ class ProductService implements ProductServiceInterface
            'description' => $data['description']
         ]);
         $product->save();
+        return $product;
+    }
+
+    /**
+     * delete product by id
+     *
+     * @param Product $product
+     * @return Product
+     * @throws ModelNotFoundException
+     */
+    public function deleteProduct($product){
+        $product->delete();
         return $product;
     }
 }

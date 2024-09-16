@@ -270,6 +270,56 @@
                 ]
             }
         },
+        "/products/deleteProduct/{product_id}": {
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "delete product",
+                "operationId": "16e5968a531592cf053ada2ce798fbe6",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "product deleted seccessfully"
+                                        },
+                                        "product": {
+                                            "type": "string",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/users/register": {
             "post": {
                 "tags": [

@@ -302,4 +302,55 @@ class ProductController extends Controller
             'product' => $data
         ], 201);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/products/deleteProduct/{product_id}",
+     *     summary="delete product",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *          name="product_id",
+     *          in="path",
+     *          required=true,
+     *          description="Product number",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(
+     *       response=200, description="Successful deleted",
+     *        @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="product deleted seccessfully"
+     *              ),
+     *       @OA\Property(
+     *                   property="product",
+     *                   type="string",
+     *                    example="[]"
+     *               ),
+     *          )
+     *      ),
+     *      @OA\Response(response=400, description="Invalid request"),
+     *      security={
+     *           {"bearer": {}}
+     *       }
+     *  )
+     **/
+    public function deleteProduct($product_id)
+    {
+        $product = $this->productService->findProductById($product_id);
+        if (!$product) {
+            return response()->json(['message' => 'product not found'], 404);
+        }
+        if ( $product->seller_id != Auth::id()) {
+            return response()->json(['message' => 'not allowed'], 403);
+        }
+        $deleted_data = $this->productService->deleteProduct($product);
+        return response()->json([
+            'message' => 'product deleted successfully',
+            'product' => $deleted_data
+        ],200);
+    }
 }

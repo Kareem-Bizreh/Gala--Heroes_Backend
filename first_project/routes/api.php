@@ -31,5 +31,6 @@ Route::group(['prefix' => 'products'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/addProduct', [ProductController::class, 'addProduct']);
         Route::put('/editProduct/{product_id}', [ProductController::class, 'editProduct']);
+        Route::delete('deleteProduct/{product_id}', [ProductController::class, 'deleteProduct']);
     });
 });

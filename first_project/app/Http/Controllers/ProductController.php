@@ -54,7 +54,7 @@ class ProductController extends Controller
      *                  example="30"
      *             ),
      *             @OA\Property(
-     *                 property="beetween_percent",
+     *                 property="between_percent",
      *                  type="integer",
      *                  example="50"
      *              ),
@@ -181,7 +181,7 @@ class ProductController extends Controller
      *                  example="30"
      *             ),
      *             @OA\Property(
-     *                 property="beetween_percent",
+     *                 property="between_percent",
      *                  type="integer",
      *                  example="50"
      *              ),

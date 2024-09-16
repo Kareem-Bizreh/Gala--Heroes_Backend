@@ -27,6 +27,117 @@
                 }
             }
         },
+        "/products/addProduct": {
+            "post": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "add new product",
+                "operationId": "fb94f2fc0a0e3986f25a7931fa2e8a9b",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "more_period",
+                                    "more_percent",
+                                    "between_percent",
+                                    "less_period",
+                                    "less_percent",
+                                    "name",
+                                    "image_url",
+                                    "price",
+                                    "expiration_date",
+                                    "category_id",
+                                    "count",
+                                    "description"
+                                ],
+                                "properties": {
+                                    "more_period": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "more_percent": {
+                                        "type": "integer",
+                                        "example": "30"
+                                    },
+                                    "beetween_percent": {
+                                        "type": "integer",
+                                        "example": "50"
+                                    },
+                                    "less_period": {
+                                        "type": "integer",
+                                        "example": "15"
+                                    },
+                                    "less_percent": {
+                                        "type": "integer",
+                                        "example": "70"
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "example": "oil"
+                                    },
+                                    "image_url": {
+                                        "type": "string",
+                                        "format": "uri",
+                                        "example": "https://example.com/image.jpg"
+                                    },
+                                    "price": {
+                                        "type": "number",
+                                        "format": "float",
+                                        "example": "15.5"
+                                    },
+                                    "expiration_date": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "example": "2024-09-16 08:00:00"
+                                    },
+                                    "category_id": {
+                                        "type": "integer",
+                                        "example": "1"
+                                    },
+                                    "count": {
+                                        "type": "integer",
+                                        "example": "10"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "example": "good oil"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Successful added",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "product added seccessfully"
+                                        },
+                                        "product": {
+                                            "type": "string",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
         "/users/register": {
             "post": {
                 "tags": [

@@ -25,5 +25,10 @@ Route::group(['prefix' => 'users'], function () {
 });
 
 Route::group(['prefix' => 'products'], function () {
+
     Route::get('/allProducts', [ProductController::class, 'showAllProducts']);
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('/addProduct', [ProductController::class, 'addProduct']);
+    });
 });

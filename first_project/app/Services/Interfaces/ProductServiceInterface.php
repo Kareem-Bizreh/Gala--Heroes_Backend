@@ -13,4 +13,6 @@ interface ProductServiceInterface
      * @throws ModelNotFoundException
      */
     public function getAllProducts();
+
+    public function addProduct($data);
 }

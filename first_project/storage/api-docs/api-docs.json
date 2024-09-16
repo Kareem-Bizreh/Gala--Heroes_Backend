@@ -593,12 +593,12 @@
             }
         },
         "/users/setPassword": {
-            "post": {
+            "put": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "set new password",
-                "operationId": "91c09999f3eb0bb3a1fe04cde0f6eb94",
+                "operationId": "cd36662d3ba59dc825526afa280d35eb",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -652,12 +652,12 @@
             }
         },
         "/users/resetPassword": {
-            "post": {
+            "put": {
                 "tags": [
                     "Users"
                 ],
                 "summary": "reset password",
-                "operationId": "39ea8a5264d6c13500bbcde918697e23",
+                "operationId": "42de47313002e71652fb55c0f1616d5e",
                 "requestBody": {
                     "required": true,
                     "content": {
@@ -703,6 +703,91 @@
                                 }
                             }
                         }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/users/editUser": {
+            "put": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "edit users",
+                "operationId": "cd188f8fc4d42354d95133ca32448619",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "full_name",
+                                    "bio"
+                                ],
+                                "properties": {
+                                    "full_name": {
+                                        "type": "string",
+                                        "example": "Harry Potter"
+                                    },
+                                    "bio": {
+                                        "type": "string",
+                                        "example": "doctor from 2014"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully edit the user",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "updated done"
+                                        },
+                                        "user": {
+                                            "type": "string",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/users/showUser": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "show user information",
+                "operationId": "d1a15178b0ade8cbcac106e1c825fc2a",
+                "responses": {
+                    "200": {
+                        "description": "return the user"
                     },
                     "400": {
                         "description": "Invalid request"

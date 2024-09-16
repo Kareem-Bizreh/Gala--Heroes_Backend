@@ -40,7 +40,6 @@ interface UserServiceInterface
      * @param $data
      * @return User
      * @throws ModelNotFoundException
-     * @throws ValidationException
      */
     public function updateUser(int $id, $data): User;
 

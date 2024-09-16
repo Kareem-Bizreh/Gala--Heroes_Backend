@@ -77,7 +77,7 @@ class UserController extends Controller
     public function register(Request $request)
     {
         $validateDate = Validator::make($request->all(), [
-            'full_name' => 'required|string|max:255',
+            'full_name' => 'required|string|max:20',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -361,7 +361,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/users/setPassword",
      *     summary="set new password",
      *     tags={"Users"},
@@ -422,7 +422,7 @@ class UserController extends Controller
     }
 
     /**
-     * @OA\Post(
+     * @OA\Put(
      *     path="/users/resetPassword",
      *     summary="reset password",
      *     tags={"Users"},
@@ -491,5 +491,88 @@ class UserController extends Controller
         return response()->json([
             'message' => 'new password set'
         ], 200);
+    }
+
+    /**
+     * @OA\Put(
+     *     path="/users/editUser",
+     *     summary="edit users",
+     *     tags={"Users"},
+     *     @OA\RequestBody(
+     *         required=true,
+     *         @OA\JsonContent(
+     *             required={"full_name", "bio"},
+     *             @OA\Property(
+     *                 property="full_name",
+     *                 type="string",
+     *                 example="Harry Potter"
+     *             ),
+     *             @OA\Property(
+     *                 property="bio",
+     *                 type="string",
+     *                 example="doctor from 2014"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(
+     *      response=200, description="Successfully edit the user",
+     *       @OA\JsonContent(
+     *             @OA\Property(
+     *                 property="message",
+     *                 type="string",
+     *                 example="updated done"
+     *             ),
+     *             @OA\Property(
+     *                 property="user",
+     *                 type="string",
+     *                 example="[]"
+     *             ),
+     *         )
+     *     ),
+     *     @OA\Response(response=400, description="Invalid request"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+    public function edit(Request $request)
+    {
+        $data = Validator::make($request->all(), [
+            'full_name' => 'required|string|max:20',
+            'bio' => 'required|string|max:100',
+        ]);
+
+        if ($data->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $data->errors(),
+            ], 400);
+        }
+        $data = $data->validated();
+
+        $this->userService->updateUser(Auth::id(), $data);
+
+        return response()->json([
+            'message' => 'updated done',
+            'user' => Auth::user()
+        ]);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/users/showUser",
+     *     summary="show user information",
+     *     tags={"Users"},
+     *     @OA\Response(
+     *      response=200, description="return the user"),
+     *     @OA\Response(response=400, description="Invalid request"),
+     *     security={
+     *         {"bearer": {}}
+     *     }
+     * )
+     */
+    public function show()
+    {
+        return response()->json(Auth::user());
     }
 }

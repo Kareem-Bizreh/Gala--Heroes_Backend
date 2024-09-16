@@ -16,11 +16,14 @@ Route::group(['prefix' => 'users'], function () {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/forgetPassword', [UserController::class, 'forgetPassword']);
     Route::post('/verifyPassword', [UserController::class, 'verifyPassword']);
-    Route::post('/setPassword', [UserController::class, 'setPassword']);
+    Route::put('/setPassword', [UserController::class, 'setPassword']);
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/logout', [UserController::class, 'logout']);
         Route::post('/resetPassword', [UserController::class, 'resetPassword']);
+        Route::put('/resetPassword', [UserController::class, 'resetPassword']);
+        Route::get('/showUser', [UserController::class, 'show']);
+        Route::put('/editUser', [UserController::class, 'edit']);
     });
 });
 

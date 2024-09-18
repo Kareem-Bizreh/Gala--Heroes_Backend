@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -36,5 +37,15 @@ Route::group(['prefix' => 'products'], function () {
         Route::post('/addProduct', [ProductController::class, 'addProduct']);
         Route::put('/editProduct/{product_id}', [ProductController::class, 'editProduct']);
         Route::delete('deleteProduct/{product_id}', [ProductController::class, 'deleteProduct']);
+    });
+});
+
+Route::group(['prefix' => 'contacts'], function () {
+
+    Route::get('/allForUser/{user_id}', [ContactController::class, 'showContactInfo']);
+
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::post('/addContactInfo', [ContactController::class, 'addInfo']);
+        Route::get('/allTypes', [ContactController::class, 'showContactType']);
     });
 });

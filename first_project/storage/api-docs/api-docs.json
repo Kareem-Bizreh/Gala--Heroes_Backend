@@ -10,7 +10,121 @@
         }
     ],
     "paths": {
+<<<<<<< HEAD
         "/products/manyProducts/{number}": {
+=======
+        "/contacts/allForUser/{user_id}": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "summary": "show contact information for user",
+                "operationId": "4246248f185b9ca4528df5c5e480436d",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get inforamtion"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/contacts/allTypes": {
+            "get": {
+                "tags": [
+                    "Contacts"
+                ],
+                "summary": "show all contact type to user when he add contact information",
+                "operationId": "28b391c200aac897342df7ce0d31ca99",
+                "responses": {
+                    "200": {
+                        "description": "succesful show all contact type"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/contacts/addContactInfo": {
+            "post": {
+                "tags": [
+                    "Contacts"
+                ],
+                "summary": "add contact information for users",
+                "operationId": "31d3075a4ba74f5a369122985162baa7",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "id",
+                                    "value"
+                                ],
+                                "properties": {
+                                    "id": {
+                                        "type": "integer",
+                                        "example": 5
+                                    },
+                                    "value": {
+                                        "type": "string",
+                                        "example": "test@example.com"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully contact inforamtion added",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "information added successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/products/allProducts": {
+>>>>>>> ecf468351aec9da70a98c40d8f8a65328e53d475
             "get": {
                 "tags": [
                     "Products"
@@ -891,6 +1005,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Contacts",
+            "description": "Contacts"
+        },
         {
             "name": "Products",
             "description": "Products"

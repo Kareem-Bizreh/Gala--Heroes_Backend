@@ -2,18 +2,59 @@
 
 namespace App\Services\Interfaces;
 
+use App\Models\Period;
 use App\Models\Product;
 use App\Models\User;
-use http\Env\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\Date;
 
 interface ProductServiceInterface
 {
     /**
-     * get all products
+     * Calculate the days remaining until expiration
      *
+     * @param Date $expiration_date
+     * @return int
+     */
+    public function calRemainingDays($expiration_date): int;
+
+    /**
+     * Calculate the price with discount
+     *
+     * @param  integer $price
+     * @param Period $period
+     * @param integer $remainder_days
+     * @return array
      * @throws ModelNotFoundException
      */
-    public function getAllProducts();
+    public function getDiscountInfo($price, $period, $remainder_days) : array;
+
+    /**
+     * Update the price and discount percentage according to the remaining days until expiration
+     *
+     * @param  Product $product
+     * @param int $remainder_days
+     * @throws ModelNotFoundException
+     */
+    public function refresh_discount_info($product, $remainder_days);
+
+    /**
+     * Find the product by id
+     *
+     * @param integer $product_id
+     * @return Product
+     * @throws ModelNotFoundException
+     */
+    public function findProductById($product_id) : Product;
+
+    /**
+     * get many products
+     *
+     * @param int $number
+     * @throws ModelNotFoundException
+     */
+    public function getManyProducts($number);
+
 
     /**
      * add product

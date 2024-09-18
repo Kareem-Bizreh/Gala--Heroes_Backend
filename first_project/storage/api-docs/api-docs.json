@@ -10,16 +10,55 @@
         }
     ],
     "paths": {
-        "/products/allProducts": {
+        "/products/manyProducts/{number}": {
             "get": {
                 "tags": [
                     "Products"
                 ],
                 "summary": "get all products",
-                "operationId": "ae5efe32f2526653bd4bf8d56200373f",
+                "operationId": "537cb0a25e7f64f183e6d438481150da",
+                "parameters": [
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Product number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successful get all products"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/products/oneProduct/{product_id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get one product",
+                "operationId": "261967d6ce1e2750c39fc39cb97b2359",
+                "parameters": [
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get product"
                     },
                     "400": {
                         "description": "Invalid request"

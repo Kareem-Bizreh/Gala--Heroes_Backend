@@ -19,18 +19,63 @@ class ProductController extends Controller
 
     /**
      * @OA\Get(
-     *     path="/products/allProducts",
+     *     path="/products/manyProducts/{number}",
      *     summary="get all products",
      *     tags={"Products"},
+     *     @OA\Parameter(
+     *           name="number",
+     *           in="path",
+     *           required=true,
+     *           description="Product number",
+     *           @OA\Schema(
+     *               type="integer"
+     *           )
+     *       ),
      *     @OA\Response(
      *      response=200, description="Successful get all products"),
      *     @OA\Response(response=400, description="Invalid request")
      * )
      */
-    public function showAllProducts()
+    public function showManyProducts($number)
     {
-        $products = $this->productService->getAllProducts();
+        $products = $this->productService->getManyProducts($number);
         return response()->json($products, 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/products/oneProduct/{product_id}",
+     *     summary="get one product",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *           name="product_id",
+     *           in="path",
+     *           required=true,
+     *           description="Product id",
+     *           @OA\Schema(
+     *               type="integer"
+     *           )
+     *       ),
+     *     @OA\Response(
+     *      response=200, description="Successful get product"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function showOneProduct($product_id)
+    {
+        $product = $this->productService->findProductById($product_id);
+        if (!$product) {
+            return response()->json(['message' => 'product not found'], 404);
+        }
+        $remainder_days = $this->productService->calRemainingDays($product->expiration_date);
+        $this->productService->refresh_discount_info($product, $remainder_days);
+        $product->save();
+        return response()->json([
+            'product info' => $product,
+            'remainder days' => $remainder_days,
+            'periods info' => $product->period,
+            'category info' => $product->category,
+            ], 200);
     }
 
     /**

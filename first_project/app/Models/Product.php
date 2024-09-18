@@ -17,11 +17,24 @@ class Product extends Model
         'period_id',
         'category_id',
         'count',
-        'description'
+        'description',
+        'price_with_discount',
+        'discount_rate',
     ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function period()
+    {
+        return $this->belongsTo(Period::class);
+    }
+
 }

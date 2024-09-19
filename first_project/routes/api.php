@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
@@ -31,12 +32,18 @@ Route::group(['prefix' => 'users'], function () {
 Route::group(['prefix' => 'products'], function () {
 
     Route::get('/manyProducts/{number}', [ProductController::class, 'showManyProducts']);
-    Route::get('/oneProduct/{number}', [ProductController::class, 'showOneProduct']);
+    Route::get('/oneProduct/{product_id}', [ProductController::class, 'showOneProduct']);
+
+    Route::group(['prefix' => 'filterBy'], function () {
+        Route::get('/name/{product_name}', [ProductController::class, 'filterProductsByName']);
+        Route::get('/category/{category_id}', [ProductController::class, 'filterProductsByCategory']);
+        Route::get('/expirationDate/{expiration_date}', [ProductController::class, 'filterProductsByExpirationDate']);
+    });
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/addProduct', [ProductController::class, 'addProduct']);
         Route::put('/editProduct/{product_id}', [ProductController::class, 'editProduct']);
-        Route::delete('deleteProduct/{product_id}', [ProductController::class, 'deleteProduct']);
+        Route::delete('/deleteProduct/{product_id}', [ProductController::class, 'deleteProduct']);
     });
 });
 
@@ -49,3 +56,5 @@ Route::group(['prefix' => 'contacts'], function () {
         Route::get('/allTypes', [ContactController::class, 'showContactType']);
     });
 });
+
+Route::get('/categories', [CategoryController::class, 'getCategories']);

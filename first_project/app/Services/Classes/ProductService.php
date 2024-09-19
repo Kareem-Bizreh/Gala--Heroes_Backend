@@ -108,6 +108,60 @@ class ProductService implements ProductServiceInterface
         return $products;
     }
 
+    /**
+     * filter products by category
+     *
+     * @param integer $category_id
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByCategoryId($category_id)
+    {
+        $products = Product::where('category_id', $category_id)
+            ->get(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id']);
+        foreach ($products as $product)
+        {
+            $remainder_days = $this->calRemainingDays($product->expiration_date);
+            $this->refresh_discount_info($product, $remainder_days);
+        }
+        return $products;
+    }
+
+    /**
+     * filter products by expiration date
+     *
+     * @param Date $expiration_date
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByExpirationDate($expiration_date)
+    {
+        $products = Product::where('expiration_date', '<=', $expiration_date)
+            ->orderBy('expiration_date', 'desc')
+            ->get(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id']);
+        foreach ($products as $product)
+        {
+            $remainder_days = $this->calRemainingDays($product->expiration_date);
+            $this->refresh_discount_info($product, $remainder_days);
+        }
+        return $products;
+    }
+
+    /**
+     * filter products by name
+     *
+     * @param string $product_name
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByName($product_name)
+    {
+        $products = Product::where('name', $product_name)
+            ->get(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id']);
+        foreach ($products as $product)
+        {
+            $remainder_days = $this->calRemainingDays($product->expiration_date);
+            $this->refresh_discount_info($product, $remainder_days);
+        }
+        return $products;
+    }
 
     /**
      * add product

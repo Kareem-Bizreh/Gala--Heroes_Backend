@@ -10,6 +10,20 @@
         }
     ],
     "paths": {
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "get all categories",
+                "operationId": "ccdda622fc3a681727dc266235461959",
+                "responses": {
+                    "200": {
+                        "description": "Successful get categories"
+                    }
+                }
+            }
+        },
         "/contacts/allForUser/{user_id}": {
             "get": {
                 "tags": [
@@ -176,6 +190,91 @@
                 }
             }
         },
+        "/products/filterBy/category/{category_id}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get products by category id",
+                "operationId": "d0ecbefbc2b0fa8d07e916da28ba4861",
+                "parameters": [
+                    {
+                        "name": "category_id",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful filter products by category"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/products/filterBy/expirationDate/{expiration_date}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get products by expiration date",
+                "operationId": "4a3b7fdf9213454c90ab3f7109fe3c60",
+                "parameters": [
+                    {
+                        "name": "expiration_date",
+                        "in": "path",
+                        "description": "Category id",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful filter products by expiration date"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
+        "/products/filterBy/name/{product_name}": {
+            "get": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "get products by name",
+                "operationId": "aacae4286391f17ad64bcc8793203261",
+                "parameters": [
+                    {
+                        "name": "product_name",
+                        "in": "path",
+                        "description": "Product name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful filter products by name"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
         "/products/addProduct": {
             "post": {
                 "tags": [
@@ -235,12 +334,12 @@
                                     "price": {
                                         "type": "number",
                                         "format": "float",
-                                        "example": "15.5"
+                                        "example": "10000"
                                     },
                                     "expiration_date": {
                                         "type": "string",
                                         "format": "date-time",
-                                        "example": "2024-09-16 08:00:00"
+                                        "example": "2024-10-16 08:00:00"
                                     },
                                     "category_id": {
                                         "type": "integer",
@@ -1001,6 +1100,10 @@
         }
     },
     "tags": [
+        {
+            "name": "Categories",
+            "description": "Categories"
+        },
         {
             "name": "Contacts",
             "description": "Contacts"

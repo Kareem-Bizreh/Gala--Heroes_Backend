@@ -80,6 +80,82 @@ class ProductController extends Controller
     }
 
     /**
+     * @OA\Get(
+     *     path="/products/filterBy/category/{category_id}",
+     *     summary="get products by category id",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *           name="category_id",
+     *           in="path",
+     *           required=true,
+     *           description="Category id",
+     *           @OA\Schema(
+     *               type="integer"
+     *           )
+     *       ),
+     *     @OA\Response(
+     *      response=200, description="Successful filter products by category"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function filterProductsByCategory($category_id)
+    {
+        $products = $this->productService->getProductsByCategoryId($category_id);
+        return response()->json(['products' => $products], 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/products/filterBy/expirationDate/{expiration_date}",
+     *     summary="get products by expiration date",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *           name="expiration_date",
+     *           in="path",
+     *           required=true,
+     *           description="Category id",
+     *           @OA\Schema(
+     *               type="string",
+     *               format="date"
+     *           )
+     *       ),
+     *     @OA\Response(
+     *      response=200, description="Successful filter products by expiration date"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function filterProductsByExpirationDate($expiration_date)
+    {
+        $products = $this->productService->getProductsByExpirationDate($expiration_date);
+        return response()->json(['products' => $products], 200);
+    }
+
+    /**
+     * @OA\Get(
+     *     path="/products/filterBy/name/{product_name}",
+     *     summary="get products by name",
+     *     tags={"Products"},
+     *     @OA\Parameter(
+     *           name="product_name",
+     *           in="path",
+     *           required=true,
+     *           description="Product name",
+     *           @OA\Schema(
+     *               type="string"
+     *           )
+     *       ),
+     *     @OA\Response(
+     *      response=200, description="Successful filter products by name"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function filterProductsByName($product_name)
+    {
+        $products = $this->productService->getProductsByName($product_name);
+        return response()->json(['products' => $products], 200);
+    }
+
+    /**
      * @OA\Post(
      *     path="/products/addProduct",
      *     summary="add new product",
@@ -129,13 +205,13 @@ class ProductController extends Controller
      *                   property="price",
      *                    type="number",
      *                    format="float",
-     *                    example="15.5",
+     *                    example="10000",
      *               ),
      *              @OA\Property(
      *                   property="expiration_date",
      *                    type="string",
      *                    format="date-time",
-     *                    example="2024-09-16 08:00:00"
+     *                    example="2024-10-16 08:00:00"
      *               ),
      *              @OA\Property(
      *                    property="category_id",

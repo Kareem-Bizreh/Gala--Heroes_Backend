@@ -54,7 +54,29 @@ interface ProductServiceInterface
      */
     public function getManyProducts($number);
 
+    /**
+     * filter products by category
+     *
+     * @param integer $category_id
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByCategoryId($category_id);
 
+    /**
+     * filter products by expiration date
+     *
+     * @param \Carbon\Traits\Date $expiration_date
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByExpirationDate($expiration_date);
+
+    /**
+     * filter products by name
+     *
+     * @param string $product_name
+     * @throws ModelNotFoundException
+     */
+    public function getProductsByName($product_name);
     /**
      * add product
      *

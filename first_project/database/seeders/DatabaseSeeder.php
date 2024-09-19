@@ -27,9 +27,9 @@ class DatabaseSeeder extends Seeder
 
         //db:seed
 
-        $this->call(
+        $this->call([
             ContactSeeder::class,
             CategorySeeder::class
-        );
+        ]);
     }
 }

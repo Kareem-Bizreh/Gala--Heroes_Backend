@@ -575,4 +575,29 @@ class UserController extends Controller
     {
         return response()->json(Auth::user());
     }
+
+    /**
+     * @OA\Get(
+     *     path="/users/products/{user_id}",
+     *     summary="show products of user",
+     *     tags={"Users"},
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         in="path",
+     *         description="ID of the user",
+     *         required=true,
+     *         @OA\Schema(
+     *             type="integer",
+     *             format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(
+     *      response=200, description="Successfully get inforamtion"),
+     *     @OA\Response(response=400, description="Invalid request")
+     * )
+     */
+    public function getProducts(int $user_id)
+    {
+        return response()->json($this->userService->products($user_id), 200);
+    }
 }

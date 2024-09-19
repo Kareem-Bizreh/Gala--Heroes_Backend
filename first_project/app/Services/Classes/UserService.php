@@ -146,4 +146,16 @@ class UserService implements UserServiceInterface
         }
         return response()->json(['message' => 'user has been verified']);
     }
+
+    /**
+     * get all products to a user
+     *
+     * @param int $user_id
+     * @throws ModelNotFound
+     */
+    public function products(int $user_id)
+    {
+        $user = $this->findById($user_id);
+        return $user->products;
+    }
 }

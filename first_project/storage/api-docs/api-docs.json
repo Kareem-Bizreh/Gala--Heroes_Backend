@@ -998,6 +998,35 @@
                     }
                 ]
             }
+        },
+        "/users/products/{user_id}": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "show products of user",
+                "operationId": "2097fbb0c1359107dacc4098b71fd286",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "in": "path",
+                        "description": "ID of the user",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successfully get inforamtion"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
         }
     },
     "tags": [

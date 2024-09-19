@@ -18,6 +18,7 @@ Route::group(['prefix' => 'users'], function () {
     Route::post('/forgetPassword', [UserController::class, 'forgetPassword']);
     Route::post('/verifyPassword', [UserController::class, 'verifyPassword']);
     Route::put('/setPassword', [UserController::class, 'setPassword']);
+    Route::get('/products/{user_id}', [UserController::class, 'getProducts']);
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/logout', [UserController::class, 'logout']);

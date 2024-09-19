@@ -37,4 +37,9 @@ class Product extends Model
         return $this->belongsTo(Period::class);
     }
 
+    public function ratings()
+    {
+        return $this->hasMany(Rating::class);
+    }
+
 }

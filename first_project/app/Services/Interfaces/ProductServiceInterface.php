@@ -42,10 +42,9 @@ interface ProductServiceInterface
      * Find the product by id
      *
      * @param integer $product_id
-     * @return Product
      * @throws ModelNotFoundException
      */
-    public function findProductById($product_id) : Product;
+    public function findProductById($product_id);
 
     /**
      * get many products

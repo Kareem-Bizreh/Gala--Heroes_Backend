@@ -69,9 +69,10 @@ class ProductController extends Controller
         }
         $remainder_days = $this->productService->calRemainingDays($product->expiration_date);
         $this->productService->refresh_discount_info($product, $remainder_days);
-        $product->save();
         return response()->json([
             'product info' => $product,
+            'price with discount' => $product->price_with_discount,
+            'discount rate' => $product->discount_rate,
             'remainder days' => $remainder_days,
             'periods info' => $product->period,
             'category info' => $product->category,

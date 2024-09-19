@@ -10,9 +10,6 @@
         }
     ],
     "paths": {
-<<<<<<< HEAD
-        "/products/manyProducts/{number}": {
-=======
         "/contacts/allForUser/{user_id}": {
             "get": {
                 "tags": [
@@ -123,8 +120,7 @@
                 ]
             }
         },
-        "/products/allProducts": {
->>>>>>> ecf468351aec9da70a98c40d8f8a65328e53d475
+        "/products/manyProducts/{number}": {
             "get": {
                 "tags": [
                     "Products"

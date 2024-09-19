@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('image_url');
             $table->foreignId('category_id')->constrained('categories')->references('id');
             $table->float('price');
-            $table->float('price_with_discount')->nullable();
-            $table->integer('discount_rate')->default(0);
             $table->date('expiration_date');
             $table->foreignId('period_id')->constrained('periods')->references('id');
             $table->integer('count');

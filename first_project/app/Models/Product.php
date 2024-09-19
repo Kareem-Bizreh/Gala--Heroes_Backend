@@ -18,9 +18,9 @@ class Product extends Model
         'category_id',
         'count',
         'description',
-        'price_with_discount',
-        'discount_rate',
     ];
+    public $discount_rate;
+    public $price_with_discount;
 
     public function user()
     {

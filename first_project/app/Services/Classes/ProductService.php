@@ -67,7 +67,7 @@ class ProductService implements ProductServiceInterface
     /**
      * Update the price and discount percentage according to the remaining days until expiration
      *
-     * @param  Product $product
+     * @param Product $product
      * @param $remainder_days
      * @throws ModelNotFoundException
      */
@@ -83,10 +83,9 @@ class ProductService implements ProductServiceInterface
      * Find the product by id
      *
      * @param integer $product_id
-     * @return Product
      * @throws ModelNotFoundException
      */
-    public function findProductById($product_id) : Product
+    public function findProductById($product_id)
     {
         return Product::where('id', $product_id)->first();
     }
@@ -100,7 +99,7 @@ class ProductService implements ProductServiceInterface
     public function getManyProducts($number)
     {
         $products = Product::take($number)
-            ->get(['id', 'name', 'image_url', 'price', 'price_with_discount', 'discount_rate', 'expiration_date', 'period_id']);
+            ->get(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id']);
         foreach ($products as $product)
         {
             $remainder_days = $this->calRemainingDays($product->expiration_date);

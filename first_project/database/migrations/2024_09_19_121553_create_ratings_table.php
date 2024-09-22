@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('rating_value');
             $table->text('comment');
             $table->timestamps();
-            //$table->unique(['user_id', 'product_id']);
+            $table->unique(['user_id', 'product_id']);
         });
     }
 

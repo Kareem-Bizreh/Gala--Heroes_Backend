@@ -64,11 +64,12 @@ Route::get('categories', [CategoryController::class, 'getCategories']);
 
 Route::group(['prefix' => 'ratings'], function () {
     Route::get('/showProductRatings/{number}/{product_id}', [RatingController::class, 'showProductRatings']);
+    Route::get('/showProductRating/{product_id}', [RatingController::class, 'showProductRating']);
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/addRating/{product_id}', [RatingController::class, 'addRating']);
         Route::put('/editRating/{rating_id}', [RatingController::class, 'editRating']);
-        Route::delete('deleteRating/{rating_id}', [RatingController::class, 'deleteRating']);
+        Route::delete('/deleteRating/{rating_id}', [RatingController::class, 'deleteRating']);
     });
 });
 

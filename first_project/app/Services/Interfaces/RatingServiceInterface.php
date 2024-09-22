@@ -55,4 +55,12 @@ interface RatingServiceInterface
      * @param Rating $rating
      */
     public function deleteRating(Rating $rating);
+
+    /**
+     * Calculate product Rating
+     *
+     * @param int $product_id
+     * @return float|int
+     */
+    public function calProductRating(int $product_id);
 }

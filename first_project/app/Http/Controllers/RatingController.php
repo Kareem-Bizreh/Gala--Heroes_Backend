@@ -283,4 +283,60 @@ class RatingController extends Controller
             'message' => 'rating deleted successfully',
         ],200);
     }
+
+
+    /**
+     * @OA\Get(
+     * path="/ratings/showProductRating/{product_id}",
+     * summary="Get ratings for a specific product",
+     * tags={"Ratings"},
+     * @OA\Parameter(
+     *    name="product_id",
+     *    in="path",
+     *    required=true,
+     *    description="ID of the product",
+     *    @OA\Schema(
+     *        type="integer"
+     *    )
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Successful retrieval of product rating",
+     *    @OA\JsonContent(
+     *        @OA\Property(
+     *            property="product rating",
+     *            type="number",
+     *            format="float",
+     *            example=4.5
+     *        )
+     *    )
+     * ),
+     * @OA\Response(
+     *    response=404,
+     *    description="No ratings found for this product",
+     *    @OA\JsonContent(
+     *        @OA\Property(
+     *            property="message",
+     *            type="string",
+     *            example="There are no ratings for this product"
+     *        )
+     *    )
+     * ),
+     * @OA\Response(
+     *    response=400,
+     *    description="Invalid request"
+     * )
+     * )
+     */
+
+
+    public function showProductRating($product_id)
+    {
+        $product_rating = $this->ratingService->calProductRating($product_id);
+        if(!$product_rating)
+        {
+            return response()->json(['message' => 'there are no ratings for this product'], 404);
+        }
+        return response()->json(['total rating' => $product_rating],200);
+    }
 }

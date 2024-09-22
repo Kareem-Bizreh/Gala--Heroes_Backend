@@ -2,6 +2,7 @@
 
 namespace App\Services\Classes;
 
+use App\Models\Product;
 use App\Models\Rating;
 use App\Services\Interfaces\RatingServiceInterface;
 use http\Env\Request;
@@ -95,5 +96,26 @@ class RatingService implements RatingServiceInterface
     {
         $deleted_rating = $rating->delete();
         return $deleted_rating;
+    }
+
+    /**
+     * Calculate product Rating
+     *
+     * @param int $product_id
+     * @return float|int
+     */
+    public function calProductRating(int $product_id)
+    {
+        $ratings = Rating::where('product_id', $product_id)
+            ->get('rating_value');
+        if($ratings->isEmpty())
+        {
+            return null;
+        }
+        $sum = 0;
+        foreach ($ratings as $rating) {
+            $sum += $rating->rating_value;
+        }
+        return $sum/count($ratings);
     }
 }

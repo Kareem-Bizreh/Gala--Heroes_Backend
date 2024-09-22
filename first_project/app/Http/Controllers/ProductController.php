@@ -484,4 +484,6 @@ class ProductController extends Controller
             'product' => $deleted_data
         ],200);
     }
+
+
 }

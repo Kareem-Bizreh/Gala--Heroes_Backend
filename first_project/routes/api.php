@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
+use App\Http\Controllers\StatusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -67,4 +68,8 @@ Route::group(['prefix' => 'ratings'], function () {
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/addRating/{product_id}', [RatingController::class, 'addRating']);
     });
+});
+
+Route::group(['prefix' => 'statuses'], function () {
+    Route::get('/allStatuses', [StatusController::class, 'allStatuses']);
 });

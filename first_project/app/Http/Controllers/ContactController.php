@@ -39,7 +39,6 @@ class ContactController extends Controller
     public function showContactInfo(int $user_id)
     {
         $contactInfo = $this->contactRepositry->getInfo($user_id);
-        // return response()->json($contactInfo, 200);
         foreach ($contactInfo as $info) {
             $contactType = $this->contactRepositry->getTypeById($info->type_id);
             $info->type = $contactType;

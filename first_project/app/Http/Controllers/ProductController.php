@@ -23,6 +23,15 @@ class ProductController extends Controller
      *     summary="get all products",
      *     tags={"Products"},
      *     @OA\Parameter(
+     *            name="cursor",
+     *            in="query",
+     *            required=false,
+     *            description="Cursor for pagination",
+     *            @OA\Schema(
+     *                type="string"
+     *            )
+     *        ),
+     *     @OA\Parameter(
      *           name="number",
      *           in="path",
      *           required=true,
@@ -36,9 +45,9 @@ class ProductController extends Controller
      *     @OA\Response(response=400, description="Invalid request")
      * )
      */
-    public function showManyProducts($number)
+    public function showManyProducts(Request $request, $number)
     {
-        $products = $this->productService->getManyProducts($number);
+        $products = $this->productService->getManyProducts($request, $number);
         return response()->json($products, 200);
     }
 

@@ -96,10 +96,13 @@ class ProductService implements ProductServiceInterface
      * @param integer $number
      * @throws ModelNotFoundException
      */
-    public function getManyProducts($number)
+    public function getManyProducts($request, $number)
     {
-        $products = Product::take($number)
-            ->get(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id']);
+        $cursor = $request->query('cursor');
+
+        $products = Product::
+        select(['id', 'name', 'image_url', 'price', 'expiration_date', 'period_id'])
+        ->cursorPaginate($number, ['*'], 'cursor', $cursor);
         foreach ($products as $product)
         {
             $remainder_days = $this->calRemainingDays($product->expiration_date);

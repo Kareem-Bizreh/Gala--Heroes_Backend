@@ -143,6 +143,15 @@
                 "operationId": "537cb0a25e7f64f183e6d438481150da",
                 "parameters": [
                     {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Cursor for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
                         "name": "number",
                         "in": "path",
                         "description": "Product number",
@@ -566,6 +575,52 @@
                         "bearer": []
                     }
                 ]
+            }
+        },
+        "/ratings/showProductRatings/{number}/{product_id}": {
+            "get": {
+                "tags": [
+                    "Ratings"
+                ],
+                "summary": "get ratings for one product",
+                "operationId": "b3b2d0590cee9cc17ea3ea00fe069cf2",
+                "parameters": [
+                    {
+                        "name": "cursor",
+                        "in": "query",
+                        "description": "Cursor for pagination",
+                        "required": false,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "number",
+                        "in": "path",
+                        "description": "Ratings number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "product_id",
+                        "in": "path",
+                        "description": "Product id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful get ratings"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
             }
         },
         "/users/register": {
@@ -1140,6 +1195,10 @@
         {
             "name": "Products",
             "description": "Products"
+        },
+        {
+            "name": "Ratings",
+            "description": "Ratings"
         },
         {
             "name": "Users",

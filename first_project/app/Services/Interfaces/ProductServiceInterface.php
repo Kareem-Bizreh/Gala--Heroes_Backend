@@ -52,7 +52,7 @@ interface ProductServiceInterface
      * @param int $number
      * @throws ModelNotFoundException
      */
-    public function getManyProducts($number);
+    public function getManyProducts($request, $number);
 
     /**
      * filter products by category

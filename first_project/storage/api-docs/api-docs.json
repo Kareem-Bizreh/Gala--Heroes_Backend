@@ -623,6 +623,23 @@
                 }
             }
         },
+        "/statuses/allStatuses": {
+            "get": {
+                "tags": [
+                    "Statuses"
+                ],
+                "summary": "get all statuses",
+                "operationId": "2928b50e5126492c14108dc364b45b9d",
+                "responses": {
+                    "200": {
+                        "description": "succesful get all statuses"
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                }
+            }
+        },
         "/users/register": {
             "post": {
                 "tags": [
@@ -1199,6 +1216,10 @@
         {
             "name": "Ratings",
             "description": "Ratings"
+        },
+        {
+            "name": "Statuses",
+            "description": "Statuses"
         },
         {
             "name": "Users",

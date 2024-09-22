@@ -67,6 +67,7 @@ Route::group(['prefix' => 'ratings'], function () {
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/addRating/{product_id}', [RatingController::class, 'addRating']);
+        Route::put('/editRating/{rating_id}', [RatingController::class, 'editRating']);
     });
 });
 

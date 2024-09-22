@@ -32,4 +32,11 @@ interface RatingServiceInterface
      * @return array
      */
     public function addRating($request, $product_id);
+
+    /**
+     * get a rating by id
+     *
+     * @param int $rating_id
+     */
+    public function getRatingById($rating_id);
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\Classes\RatingService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -132,6 +133,97 @@ class RatingController extends Controller
 
         return response()->json([
             'message' => 'rating added successfully',
+            'rating' => $data
+        ], 201);
+    }
+
+    /**
+     * @OA\Put(
+     *       path="/ratings/editRating/{rating_id}",
+     *       summary="edit Rating",
+     *       tags={"Ratings"},
+     * @OA\Parameter(
+     *            name="rating_id",
+     *            in="path",
+     *            required=true,
+     *            description="rating id",
+     *            @OA\Schema(
+     *                type="integer"
+     *            )
+     *        ),
+     * @OA\RequestBody(
+     *           required=true,
+     *           @OA\JsonContent(
+     *               required={"rating_value", "comment"},
+     *      @OA\Property(
+     *                   property="rating_value",
+     *                   type="float",
+     *                   example="4.7"
+     *               ),
+     *      @OA\Property(
+     *                    property="comment",
+     *                     type="string",
+     *                     example="vary good!"
+     *                ),
+     *     )
+     * ),
+     * @OA\Response(
+     *        response=201, description="Successful edited",
+     *         @OA\JsonContent(
+     *               @OA\Property(
+     *                   property="message",
+     *                   type="string",
+     *                   example="rating edited seccessfully"
+     *               ),
+     *               @OA\Property(
+     *                    property="rating",
+     *                    type="string",
+     *                     example="[]"
+     *                ),
+     *           )
+     *       ),
+     *       @OA\Response(response=403, description="",
+     *          @OA\JsonContent(
+     *                @OA\Property(
+     *                    property="message",
+     *                    type="string",
+     *                    example="You are not allowed to edit this rating"
+     *                ),
+     *              )
+     *       ),
+     *       @OA\Response(response=400, description="Invalid request"),
+     *       security={
+     *            {"bearer": {}}
+     *        }
+     *     )
+     */
+    public function editRating(Request $request, $rating_id)
+    {
+        $rating = $this->ratingService->getRatingById($rating_id);
+        if(!$rating)
+        {
+            return response()->json(['message' => 'rating not found'], 404);
+        }
+        if($rating->user_id != Auth::id())
+        {
+            return response()->json(['message' => 'You are not allowed to edit this rating'], 403);
+        }
+        $validatedData = validator::make($request->all(), [
+            'rating_value' => 'required | numeric | between:1,5',
+            'comment' => 'required | string'
+        ]);
+
+        if ($validatedData->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validatedData->errors(),
+            ], 400);
+        }
+        $validatedData = $validatedData->validated();
+        $data = $this->ratingService->editRating($validatedData,$rating);
+
+        return response()->json([
+            'message' => 'rating edited successfully',
             'rating' => $data
         ], 201);
     }

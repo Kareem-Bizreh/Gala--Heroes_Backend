@@ -59,4 +59,30 @@ class RatingService implements RatingServiceInterface
         ]);
         return $rating;
     }
+
+    /**
+     * get a rating by id
+     *
+     * @param int $rating_id
+     */
+    public function getRatingById($rating_id)
+    {
+        $rating = Rating::where('id', $rating_id)->first();
+        return $rating;
+    }
+
+    /**
+     * edit a rating
+     *
+     * @param Request $request
+     * @param Rating $rating
+     */
+    public function editRating($request, $rating)
+    {
+        $updated_rating = $rating->update([
+            'rating_value' => $request['rating_value'],
+            'comment' => $request['comment'],
+        ]);
+        return $updated_rating;
+    }
 }

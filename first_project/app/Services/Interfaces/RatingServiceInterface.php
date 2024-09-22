@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Services\Interfaces;
+use App\Models\Rating;
 use http\Env\Request;
 
 interface RatingServiceInterface
@@ -27,7 +28,7 @@ interface RatingServiceInterface
     /**
      * add rating for product
      *
-     * @param Request $request
+     * @param array $request
      * @param int $product_id
      * @return array
      */
@@ -39,4 +40,19 @@ interface RatingServiceInterface
      * @param int $rating_id
      */
     public function getRatingById($rating_id);
+
+    /**
+     * edit a rating
+     *
+     * @param array $request
+     * @param Rating $rating
+     */
+    public function editRating($request, $rating);
+
+    /**
+     * delete rating
+     *
+     * @param Rating $rating
+     */
+    public function deleteRating(Rating $rating);
 }

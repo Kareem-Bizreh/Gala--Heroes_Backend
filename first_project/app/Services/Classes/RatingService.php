@@ -45,7 +45,7 @@ class RatingService implements RatingServiceInterface
     /**
      * add rating for product
      *
-     * @param Request $request
+     * @param array $request
      * @param int $product_id
      * @return array
      */
@@ -74,7 +74,7 @@ class RatingService implements RatingServiceInterface
     /**
      * edit a rating
      *
-     * @param Request $request
+     * @param array $request
      * @param Rating $rating
      */
     public function editRating($request, $rating)
@@ -84,5 +84,16 @@ class RatingService implements RatingServiceInterface
             'comment' => $request['comment'],
         ]);
         return $updated_rating;
+    }
+
+    /**
+     * delete rating
+     *
+     * @param Rating $rating
+     */
+    public function deleteRating(Rating $rating)
+    {
+        $deleted_rating = $rating->delete();
+        return $deleted_rating;
     }
 }

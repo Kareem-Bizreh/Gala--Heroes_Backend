@@ -789,6 +789,68 @@
                 ]
             }
         },
+        "/ratings/deleteRating/{rating_id}": {
+            "delete": {
+                "tags": [
+                    "Ratings"
+                ],
+                "summary": "delete rating",
+                "operationId": "5ee1ed3c6c296348f0c4ac86f6328218",
+                "parameters": [
+                    {
+                        "name": "rating_id",
+                        "in": "path",
+                        "description": "Rating number",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful deleted",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "rating deleted seccessfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "403": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "You are not allowed to delete this rating"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/statuses/allStatuses": {
             "get": {
                 "tags": [

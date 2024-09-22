@@ -227,4 +227,60 @@ class RatingController extends Controller
             'rating' => $data
         ], 201);
     }
+
+    /**
+     * @OA\Delete(
+     *     path="/ratings/deleteRating/{rating_id}",
+     *     summary="delete rating",
+     *     tags={"Ratings"},
+     *     @OA\Parameter(
+     *          name="rating_id",
+     *          in="path",
+     *          required=true,
+     *          description="Rating number",
+     *          @OA\Schema(
+     *              type="integer"
+     *          )
+     *      ),
+     *     @OA\Response(
+     *       response=200, description="Successful deleted",
+     *        @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="message",
+     *                  type="string",
+     *                  example="rating deleted seccessfully"
+     *              ),
+     *          )
+     *      ),
+     *     @OA\Response(response=403, description="",
+     *           @OA\JsonContent(
+     *                 @OA\Property(
+     *                     property="message",
+     *                     type="string",
+     *                     example="You are not allowed to delete this rating"
+     *                 ),
+     *               )
+     *        ),
+     *      @OA\Response(response=400, description="Invalid request"),
+     *      security={
+     *           {"bearer": {}}
+     *       }
+     *  )
+     **/
+    public function deleteRating($rating_id)
+    {
+        $rating = $this->ratingService->getRatingById($rating_id);
+        if(!$rating)
+        {
+            return response()->json(['message' => 'rating not found'], 404);
+        }
+        if($rating->user_id != Auth::id())
+        {
+            return response()->json(['message' => 'You are not allowed to delete this rating'], 403);
+        }
+        $deleted_data = $this->ratingService->deleteRating($rating);
+        return response()->json([
+            'message' => 'rating deleted successfully',
+        ],200);
+    }
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RatingController;
 use App\Http\Controllers\StatusController;
@@ -76,3 +77,4 @@ Route::group(['prefix' => 'ratings'], function () {
 Route::group(['prefix' => 'statuses'], function () {
     Route::get('/allStatuses', [StatusController::class, 'allStatuses']);
 });
+

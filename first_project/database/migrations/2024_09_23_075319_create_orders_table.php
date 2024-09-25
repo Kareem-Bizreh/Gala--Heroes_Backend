@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->foreignId('costumer_id')->constrained('users')->references('id');
+            $table->foreignId('saller_id')->constrained('users')->references('id');
             $table->foreignId('status_id')->constrained('statuses')->references('id')->default(1);
             $table->timestamps();
         });

@@ -48,6 +48,7 @@ class OrderService implements OrderServiceInterface
         foreach ($sallersProduct as $sallerId => $products) {
             $order = Order::create([
                 'costumer_id' => $user_id,
+                'saller_id' => $saller_id,
                 'status_id' => 1,
             ]);
             foreach ($products as $product) {

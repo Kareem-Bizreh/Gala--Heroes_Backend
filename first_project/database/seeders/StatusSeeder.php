@@ -13,7 +13,11 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         DB::table('statuses')->insert([
-            'name_en' => 'Being Prepared',
+            'name_en' => 'Waiting for seller',
+            'name_ar' => 'بانتظار البائع'
+        ]);
+        DB::table('statuses')->insert([
+            'name_en' => 'Order Being Prepared',
             'name_ar' => 'يتم تجهيز الطلب'
         ]);
         DB::table('statuses')->insert([
@@ -21,32 +25,16 @@ class StatusSeeder extends Seeder
             'name_ar' => 'على الطريق'
         ]);
         DB::table('statuses')->insert([
-            'name_en' => 'Delivery Failed',
-            'name_ar' => 'فشل التوصيل'
+            'name_en' => 'Waiting for buyer',
+            'name_ar' => 'بانتظار المشتري'
         ]);
         DB::table('statuses')->insert([
-            'name_en' => 'Delivered',
-            'name_ar' => 'تم توصيله'
+            'name_en' => 'Order has been delivered',
+            'name_ar' => 'تم تسليم الطلب'
         ]);
         DB::table('statuses')->insert([
-            'name_en' => 'Order Being Prepared',
-            'name_ar' => 'يتم تجهيز الطلب'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Order Canceled',
-            'name_ar' => 'تم الغاء الطلب'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Pending Payment',
-            'name_ar' => 'بانتظار الدفع'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Payment Completed',
-            'name_ar' => 'تم الدفع'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Order Returned',
-            'name_ar' => 'تم إرجاع الطلب'
+            'name_en' => 'Order has been rejected',
+            'name_ar' => 'تم رفض الطلب'
         ]);
     }
 }

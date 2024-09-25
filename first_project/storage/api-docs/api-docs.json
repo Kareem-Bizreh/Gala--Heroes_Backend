@@ -134,6 +134,76 @@
                 ]
             }
         },
+        "/orders/createOrder": {
+            "post": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "create order",
+                "operationId": "0cdd0caa29a39c9ccb323f8f4abdaa6c",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "array",
+                                "items": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "integer",
+                                            "example": 1
+                                        },
+                                        "count": {
+                                            "type": "integer",
+                                            "example": 5
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "example": [
+                                {
+                                    "id": 1,
+                                    "count": 5,
+                                    "price": 500
+                                },
+                                {
+                                    "id": 4,
+                                    "count": 3,
+                                    "price": 1000
+                                }
+                            ]
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successfully order created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "order added successfully"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/products/manyProducts/{number}": {
             "get": {
                 "tags": [
@@ -1494,6 +1564,10 @@
         {
             "name": "Contacts",
             "description": "Contacts"
+        },
+        {
+            "name": "Orders",
+            "description": "Orders"
         },
         {
             "name": "Products",

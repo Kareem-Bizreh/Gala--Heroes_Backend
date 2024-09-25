@@ -155,7 +155,7 @@
                                         "count": {
                                             "type": "integer"
                                         },
-                                        "price": {
+                                        "price_with_discount": {
                                             "type": "integer"
                                         }
                                     },
@@ -166,12 +166,12 @@
                                 {
                                     "id": 1,
                                     "count": 5,
-                                    "price": 500
+                                    "price_with_discount": 500
                                 },
                                 {
                                     "id": 4,
                                     "count": 3,
-                                    "price": 1000
+                                    "price_with_discount": 1000
                                 }
                             ]
                         }

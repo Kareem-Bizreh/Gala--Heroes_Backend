@@ -9,6 +9,7 @@ interface OrderServiceInterface
      *
      * @param $data
      * @param int $user_id
+     * @return bool
      */
-    public function createOrder($data, int $user_id);
+    public function createOrder($data, int $user_id): bool;
 }

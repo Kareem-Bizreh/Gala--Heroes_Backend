@@ -24,19 +24,6 @@ class OrderController extends Controller
      *         required=true,
      *         @OA\JsonContent(
      *         type="array",
-     *          @OA\Items(
-     *              type="object",
-     *              @OA\Property(
-     *                  property="id",
-     *                  type="integer",
-     *                  example=1
-     *              ),
-     *              @OA\Property(
-     *                  property="count",
-     *                  type="integer",
-     *                  example=5
-     *              )
-     *           ),
      *           @OA\Items(
      *              type="object",
      *              @OA\Property(

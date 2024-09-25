@@ -150,12 +150,13 @@
                                 "items": {
                                     "properties": {
                                         "id": {
-                                            "type": "integer",
-                                            "example": 1
+                                            "type": "integer"
                                         },
                                         "count": {
-                                            "type": "integer",
-                                            "example": 5
+                                            "type": "integer"
+                                        },
+                                        "price": {
+                                            "type": "integer"
                                         }
                                     },
                                     "type": "object"

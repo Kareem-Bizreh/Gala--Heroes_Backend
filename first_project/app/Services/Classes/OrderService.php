@@ -5,6 +5,7 @@ namespace App\Services\Classes;
 use App\Models\Order;
 use App\Models\Product;
 use App\Services\Interfaces\OrderServiceInterface;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class OrderService implements OrderServiceInterface
@@ -61,5 +62,16 @@ class OrderService implements OrderServiceInterface
             }
         }
         return true;
+    }
+
+    /**
+     * get all orders for specific seller
+     *
+     * @return array
+     */
+    public function getSellerOrders()
+    {
+        $orders = Order::where('saller_id', Auth::id())->get();
+        return $orders;
     }
 }

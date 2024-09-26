@@ -205,6 +205,41 @@
                 ]
             }
         },
+        "/orders/showSellerOrders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "show orders for specific seller",
+                "operationId": "435f5faec49917144553840e76c48fd8",
+                "responses": {
+                    "200": {
+                        "description": "Successfully get orders",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "orders": {
+                                            "type": "string",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/products/manyProducts/{number}": {
             "get": {
                 "tags": [

@@ -12,4 +12,11 @@ interface OrderServiceInterface
      * @return bool
      */
     public function createOrder($data, int $user_id): bool;
+
+    /**
+     * get all orders for specific seller
+     *
+     * @return array
+     */
+    public function getSellerOrders();
 }

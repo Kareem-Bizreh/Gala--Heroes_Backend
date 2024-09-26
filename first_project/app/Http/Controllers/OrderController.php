@@ -94,4 +94,31 @@ class OrderController extends Controller
             'message' => 'order added successfully'
         ], 200);
     }
+
+    /**
+     * @OA\Get(
+     *      path="/orders/showSellerOrders",
+     *      summary="show orders for specific seller",
+     *      tags={"Orders"},
+     * @OA\Response(
+     *       response=200, description="Successfully get orders",
+     *        @OA\JsonContent(
+     *              @OA\Property(
+     *                  property="orders",
+     *                  type="string",
+     *                  example="[]"
+     *              ),
+     *          )
+     *      ),
+     * @OA\Response(response=400, description="Invalid request"),
+     *      security={
+     *          {"bearer": {}}
+     *      }
+     *     )
+     */
+    public function showSellerOrders()
+    {
+        $orders = $this->orderService->getSellerOrders();
+        return response()->json(['orders' => $orders], 200);
+    }
 }

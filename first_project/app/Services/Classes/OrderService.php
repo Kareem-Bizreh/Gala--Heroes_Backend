@@ -45,7 +45,6 @@ class OrderService implements OrderServiceInterface
                 'price_with_discount' => $value['price_with_discount']
             ];
         }
-
         foreach ($sallersProduct as $sallerId => $products) {
             $order = Order::create([
                 'costumer_id' => $user_id,
@@ -73,5 +72,67 @@ class OrderService implements OrderServiceInterface
     {
         $orders = Order::where('saller_id', Auth::id())->get();
         return $orders;
+    }
+
+    /**
+     * get all orders for specific customer
+     *
+     * @return array
+     */
+    public function getCustomerOrders()
+    {
+        $orders = Order::where('costumer_id', Auth::id())->get();
+        return $orders;
+    }
+
+    /**
+     * @param int $order_id
+     */
+    public function getOrderById($order_id)
+    {
+        $order = Order::where('id', $order_id)->first();
+        return $order;
+    }
+
+    /**
+     * @param Order $order
+     * @return bool
+     */
+    public function acceptOrder($order)
+    {
+        $products = $order->products;
+
+        foreach ($products as $product) {
+            if($product->count > $product->pivot->count)
+            {
+                $order->update([
+                    'status_id' => 3
+                ]);
+                return false;
+            }
+        }
+
+        foreach ($products as $product) {
+            $product->update([
+                'count' => $product->count - $product->pivot->count
+            ]);
+        }
+
+        $order->update([
+            'status_id' => 2,
+        ]);
+
+        return true;
+    }
+
+    /**
+     * @param $order
+     * @return void
+     */
+    public function rejectOrder($order)
+    {
+        $order->update([
+            'status_id' => 3,
+        ]);
     }
 }

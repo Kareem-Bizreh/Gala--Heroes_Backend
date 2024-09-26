@@ -240,6 +240,81 @@
                 ]
             }
         },
+        "/orders/showCustomerOrders": {
+            "get": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "show orders for specific customer",
+                "operationId": "91463eeca89ad3ebacffdd973217e0ed",
+                "responses": {
+                    "200": {
+                        "description": "Successfully get orders",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "orders": {
+                                            "type": "string",
+                                            "example": "[]"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid request"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/orders/changeStatus/{order_id}/{status_id}": {
+            "put": {
+                "tags": [
+                    "Orders"
+                ],
+                "summary": "change the status of specific order",
+                "operationId": "2921b2b6aa53973e62bef2fe6726a496",
+                "parameters": [
+                    {
+                        "name": "order_id",
+                        "in": "path",
+                        "description": "Order id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "status_id",
+                        "in": "path",
+                        "description": "Status id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Successful changed status"
+                    },
+                    "400": {
+                        "description": "products are not enough"
+                    },
+                    "404": {
+                        "description": "status is not available"
+                    }
+                }
+            }
+        },
         "/products/manyProducts/{number}": {
             "get": {
                 "tags": [

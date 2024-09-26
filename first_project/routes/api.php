@@ -82,4 +82,6 @@ Route::group(['prefix' => 'statuses'], function () {
 Route::group(['prefix' => 'orders', 'middleware' => 'auth:api'], function () {
     Route::post('/createOrder', [OrderController::class, 'createOrder']);
     Route::get('/showSellerOrders', [OrderController::class, 'showSellerOrders']);
+    Route::get('/showCustomerOrders', [OrderController::class, 'showCustomerOrders']);
+    Route::put('/changeStatus/{order_id}/{status_id}', [OrderController::class, 'changeStatus']);
 });

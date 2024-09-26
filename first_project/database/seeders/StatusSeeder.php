@@ -16,21 +16,21 @@ class StatusSeeder extends Seeder
             'name_en' => 'Waiting for seller',
             'name_ar' => 'بانتظار البائع'
         ]);
+//        DB::table('statuses')->insert([
+//            'name_en' => 'Order Being Prepared',
+//            'name_ar' => 'يتم تجهيز الطلب'
+//        ]);
+//        DB::table('statuses')->insert([
+//            'name_en' => 'On the way',
+//            'name_ar' => 'على الطريق'
+//        ]);
+//        DB::table('statuses')->insert([
+//            'name_en' => 'Waiting for buyer',
+//            'name_ar' => 'بانتظار المشتري'
+//        ]);
         DB::table('statuses')->insert([
-            'name_en' => 'Order Being Prepared',
-            'name_ar' => 'يتم تجهيز الطلب'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'On the way',
-            'name_ar' => 'على الطريق'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Waiting for buyer',
-            'name_ar' => 'بانتظار المشتري'
-        ]);
-        DB::table('statuses')->insert([
-            'name_en' => 'Order has been delivered',
-            'name_ar' => 'تم تسليم الطلب'
+            'name_en' => 'Order has been accepted',
+            'name_ar' => 'تم قبول الطلب'
         ]);
         DB::table('statuses')->insert([
             'name_en' => 'Order has been rejected',

@@ -183,10 +183,9 @@ class OrderController extends Controller
         if (! $order) {
             return response()->json(['message' => 'order not found'], 404);
         }
-        switch ($status_id){
+        switch ($status_id) {
             case 2:
-                if($this->orderService->acceptOrder($order))
-                {
+                if ($this->orderService->acceptOrder($order)) {
                     return response()->json(['message' => 'order accepted successfully'], 201);
                 }
                 return response()->json(['message' => 'Your products are not enough'], 400);

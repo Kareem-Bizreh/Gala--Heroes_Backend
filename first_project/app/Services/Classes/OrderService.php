@@ -33,7 +33,7 @@ class OrderService implements OrderServiceInterface
                 return false;
             }
             $id = $product->id;
-            $saller_id = $product->saller_id;
+            $saller_id = $product->seller_id;
 
             if (!isset($sallersProduct[$saller_id])) {
                 $sallersProduct[$saller_id] = [];
@@ -48,7 +48,7 @@ class OrderService implements OrderServiceInterface
         foreach ($sallersProduct as $sallerId => $products) {
             $order = Order::create([
                 'costumer_id' => $user_id,
-                'saller_id' => $saller_id,
+                'saller_id' => $sallerId,
                 'status_id' => 1,
             ]);
             foreach ($products as $product) {
@@ -103,8 +103,7 @@ class OrderService implements OrderServiceInterface
         $products = $order->products;
 
         foreach ($products as $product) {
-            if($product->count > $product->pivot->count)
-            {
+            if ($product->count > $product->pivot->count) {
                 $order->update([
                     'status_id' => 3
                 ]);

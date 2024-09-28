@@ -175,11 +175,14 @@ class OrderController extends Controller
      *     @OA\Response(response=201, description="Successful changed status"),
      *     @OA\Response(response=400, description="products are not enough"),
      *     @OA\Response(response=404, description="status is not available"),
+     *     security={
+     *           {"bearer": {}}
+     *       }
      * )
      */
-    public function changeStatus($orderId, $status_id)
+    public function changeStatus($order_id, $status_id)
     {
-        $order = $this->orderService->getOrderById($orderId);
+        $order = $this->orderService->getOrderById($order_id);
         if (! $order) {
             return response()->json(['message' => 'order not found'], 404);
         }

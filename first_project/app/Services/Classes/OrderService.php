@@ -103,7 +103,7 @@ class OrderService implements OrderServiceInterface
         $products = $order->products;
 
         foreach ($products as $product) {
-            if ($product->count > $product->pivot->count) {
+            if ($product->count < $product->pivot->count) {
                 $order->update([
                     'status_id' => 3
                 ]);

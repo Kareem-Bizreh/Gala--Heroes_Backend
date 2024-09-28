@@ -312,7 +312,12 @@
                     "404": {
                         "description": "status is not available"
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             }
         },
         "/products/manyProducts/{number}": {

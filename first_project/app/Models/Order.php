@@ -14,6 +14,6 @@ class Order extends Model
     {
         return $this->belongsToMany(Product::class)
             ->withTimestamps()
-            ->withPivot(['count', 'price']);
+            ->withPivot(['count', 'price_with_discount']);
     }
 }
